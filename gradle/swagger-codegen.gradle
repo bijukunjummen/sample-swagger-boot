@@ -1,0 +1,25 @@
+apply plugin: "java"
+
+
+configurations {
+    swagger
+}
+
+dependencies {
+    swagger "io.swagger:swagger-codegen-cli:2.2.2"
+}
+
+task genSwagger(type: JavaExec) {
+    //java -Dmodels -jar ../swagger-codegen-cli-2.2.2.jar  config-help  -l java -i http://petstore.swagger.io/v2/swagger.json
+    classpath = configurations.swagger
+    main = "io.swagger.codegen.SwaggerCodegen"
+    
+    args = [
+            'generate', '-l',  'spring', 
+            '--model-package', 'org.bk.models', 
+            '-o', "$buildDir/generated-swagger-src",
+            '-c', 'gradle/swagger-config.json',
+            '-i',  'http://petstore.swagger.io/v2/swagger.json']
+//    jvmArgs = ["-DdateLibrary=java8"]
+    jvmArgs = ['-Dmodels', "-DdateLibrary=java8"]
+} 

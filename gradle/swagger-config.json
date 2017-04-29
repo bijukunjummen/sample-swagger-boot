@@ -1,0 +1,4 @@
+{
+  "apiPackage" : "org.bk.api",
+  "dateLibrary": "java8"
+}
